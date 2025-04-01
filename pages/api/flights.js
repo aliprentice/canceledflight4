@@ -1,25 +1,44 @@
-import Flight from '../../models/Flight';
-import dbConnect from '../../lib/dbConnect';
+// pages/api/flights.js
+// Simplified version without database dependencies
 
-export default async function handler(req, res) {
-  try {
-    await dbConnect();
-    
-    // Get all cancelled flights, sorted by most recent
-    const flights = await Flight.find({ status: 'CANCELLED' })
-      .sort({ updatedAt: -1 })
-      .limit(20);
-    
-    return res.status(200).json({ 
-      success: true, 
-      data: flights 
-    });
-  } catch (error) {
-    console.error('Error fetching flights:', error);
-    return res.status(500).json({ 
-      success: false, 
-      message: 'Error fetching flights',
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined
-    });
-  }
+export default function handler(req, res) {
+  // Mock data for cancelled flights
+  const flights = [
+    {
+      flightNumber: 'BA123',
+      airline: 'British Airways',
+      origin: 'LHR',
+      destination: 'JFK',
+      scheduledDeparture: '2025-04-01T12:00:00Z',
+      status: 'CANCELLED',
+      reason: 'Weather conditions',
+      updatedAt: new Date().toISOString()
+    },
+    {
+      flightNumber: 'LH456',
+      airline: 'Lufthansa',
+      origin: 'FRA',
+      destination: 'CDG',
+      scheduledDeparture: '2025-04-01T14:30:00Z',
+      status: 'CANCELLED',
+      reason: 'Technical issues',
+      updatedAt: new Date().toISOString()
+    },
+    {
+      flightNumber: 'AF789',
+      airline: 'Air France',
+      origin: 'CDG',
+      destination: 'MAD',
+      scheduledDeparture: '2025-04-01T16:45:00Z',
+      status: 'CANCELLED',
+      reason: 'Operational constraints',
+      updatedAt: new Date().toISOString()
+    }
+  ];
+  
+  return res.status(200).json({ 
+    success: true, 
+    data: flights 
+  });
 }
+
