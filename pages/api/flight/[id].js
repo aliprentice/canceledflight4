@@ -1,30 +1,47 @@
-import Flight from '../../../models/Flight';
-import dbConnect from '../../../lib/dbConnect';
+// pages/api/flight/[id].js
+// Simplified version without database dependencies
 
-export default async function handler(req, res) {
-  try {
-    await dbConnect();
-    
-    const { id } = req.query;
-    const flight = await Flight.findOne({ flightNumber: id });
-    
-    if (!flight) {
-      return res.status(404).json({ 
-        success: false, 
-        message: 'Flight not found' 
-      });
-    }
-    
-    return res.status(200).json({ 
-      success: true, 
-      data: flight 
-    });
-  } catch (error) {
-    console.error('Error fetching flight:', error);
-    return res.status(500).json({ 
-      success: false, 
-      message: 'Error fetching flight',
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined
-    });
-  }
+export default function handler(req, res) {
+  const { id } = req.query;
+  
+  // Mock data for a specific flight
+  const flight = {
+    flightNumber: id,
+    airline: id.startsWith('BA') ? 'British Airways' : 
+             id.startsWith('LH') ? 'Lufthansa' : 
+             id.startsWith('AF') ? 'Air France' : 'Unknown Airline',
+    origin: 'LHR',
+    destination: 'JFK',
+    scheduledDeparture: '2025-04-01T12:00:00Z',
+    status: 'CANCELLED',
+    reason: 'Weather conditions',
+    updatedAt: new Date().toISOString(),
+    alternativeFlights: [
+      {
+        flightNumber: 'BA456',
+        scheduledDeparture: '2025-04-01T15:30:00Z'
+      },
+      {
+        flightNumber: 'VS201',
+        scheduledDeparture: '2025-04-01T18:45:00Z'
+      }
+    ],
+    hotelOptions: [
+      {
+        name: 'Airport Hotel',
+        distance: '0.5 miles',
+        price: '£120'
+      },
+      {
+        name: 'City Center Hotel',
+        distance: '5 miles',
+        price: '£95'
+      }
+    ]
+  };
+  
+  return res.status(200).json({ 
+    success: true, 
+    data: flight 
+  });
 }
