@@ -4,10 +4,16 @@
   "description": "A webhook service for flight cancellations",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "next dev",
+    "build": "next build",
+    "lint": "next lint"
   },
   "dependencies": {
     "express": "^4.19.2",
-    "mongoose": "^8.3.2"
+    "mongoose": "^8.3.2",
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
