@@ -1,5 +1,5 @@
 {
-  "name": "canceled-flight-webhook"
+  "name": "canceled-flight-webhook",
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
