@@ -1,4 +1,14 @@
 {
+  "name": "canceled-flight-webhook",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.3.2"
+  }
+}
+
+{
   "name": "flight-cancellation",
   "version": "1.0.0",
   "private": true,
